@@ -2,9 +2,31 @@
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import messagebox
-
+import random
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+#Password Generator Project
+def generate_password():
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+    password_list = []
+
+    password_list += [random.choice(letters) for char in range(random.randint(8, 10))]
+
+    password_list += [random.choice(symbols) for char in range(random.randint(2, 4))]
+
+    password_list += [random.choice(numbers) for char in range(random.randint(2, 4))]
+
+
+    random.shuffle(password_list)
+
+    password = "".join(password_list)
+
+    password_entry.insert(0,password)
+
+
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def add_btn():
@@ -13,7 +35,7 @@ def add_btn():
     pswd = password_entry.get()
 
     if web == "" or pswd == "":
-        messagebox.showinfo(message="Please don't leave any fields empty!")
+        messagebox.showwarning(title="OOPS!", message="Please don't leave any fields empty!")
     else:
         save(web, eml, pswd)
         print(f"{web} , {eml} , {pswd}")
@@ -23,21 +45,14 @@ def add_btn():
 def save(website, email,  password):
     with open('file.txt', 'a') as f:
         f.write(f"{website} | {email} | {password}\n")
-    messagebox.showinfo(message="Password Saved Successfully")
+    messagebox.showinfo(title="Success", message="Password Saved Successfully")
 
-
-
-
-
-
-    # create function called save
-    # add button command that appends the data to the end of a text file as a newline, clears the text
 
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Style()
 window.configure("Password Manager", foreground='black', background='white')
-# window.config(padx=20, pady=20, background='white')
+
 
 canvas = Canvas(background='white', width=200, height=200, highlightthickness=0)
 canvas.grid(column=1, row=0)
@@ -61,13 +76,11 @@ password_label.grid(column=0, row=3)
 password_entry = Entry(width=21)
 password_entry.grid(column=1, row=3)
 
-generate_password_button = Button(text="Generate Password")
+generate_password_button = Button(text="Generate Password", command=generate_password)
 generate_password_button.grid(column=2, row=3)
 
 add_button = Button(text="Add", width=36, command=add_btn)
 add_button.grid(column=1, row=4, columnspan=2)
-
-
 
 
 mainloop()
