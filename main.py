@@ -31,14 +31,12 @@ def save():
 
     if len(website) == 0 or len(password) == 0:
         messagebox.showinfo(title="Oops", message="Please make sure you haven't left any fields empty.")
-    else:
-        is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \nEmail: {email} "
-                                                      f"\nPassword: {password} \nIs it ok to save?")
-        if is_ok:
-            with open("data.txt", "a") as data_file:
-                data_file.write(f"{website} | {email} | {password}\n")
-                website_entry.delete(0, END)
-                password_entry.delete(0, END)
+
+
+    with open("data.txt", "a") as data_file:
+        data_file.write(f"{website} | {email} | {password}\n")
+        website_entry.delete(0, END)
+        password_entry.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -66,7 +64,7 @@ website_entry.grid(row=1, column=1, columnspan=2)
 website_entry.focus()
 email_entry = Entry(width=35)
 email_entry.grid(row=2, column=1, columnspan=2)
-email_entry.insert(0, "angela@gmail.com")
+email_entry.insert(0, "alexkharrod@gmail.com")
 password_entry = Entry(width=21)
 password_entry.grid(row=3, column=1)
 
